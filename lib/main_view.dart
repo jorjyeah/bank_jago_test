@@ -1,4 +1,5 @@
 import 'package:bank_jago_test/email_view.dart';
+import 'package:bank_jago_test/helper.dart';
 import 'package:bank_jago_test/password_view.dart';
 import 'package:bank_jago_test/personal_info_view.dart';
 import 'package:bank_jago_test/progress_indicator_widget.dart';
@@ -11,23 +12,45 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
-  PageController pageController = PageController(initialPage: 0);
+  PageController pageController;
 
   PageView pageView;
+  int pageSelected = 0;
 
   @override
   void initState() {
+    pageController = PageController(initialPage: pageSelected);
     pageView = PageView(
       controller: pageController,
+      pageSnapping: true,
+      physics: NeverScrollableScrollPhysics(),
       scrollDirection: Axis.horizontal,
       children: [
-        EmailView(),
-        PasswordView(),
+        EmailView(
+          canNext: (value) {
+            goToNextPage(1, value);
+          },
+        ),
+        PasswordView(
+          canNext: (value) {
+            goToNextPage(2, value);
+          },
+        ),
         PersonalInfoView(),
         ScheduleVideoMeetingView(),
       ],
     );
     super.initState();
+  }
+
+  void goToNextPage(int page, bool value) {
+    print("next $value");
+    if (value) {
+      setState(() {
+        pageSelected = page;
+      });
+      pageController.animateToPage(page, duration: durationDefault, curve: curveDefaults);
+    }
   }
 
   @override
@@ -45,21 +68,34 @@ class _MainViewState extends State<MainView> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ProgressIndicatorWidget(),
+          IndexSelectedInherited(
+            data: pageSelected,
+            child: ProgressIndicatorWidget(
+              indexSelected: (value) {
+                setState(() {
+                  pageSelected = value;
+                });
+                pageController.animateToPage(value, duration: durationDefault, curve: curveDefaults);
+              },
+            ),
+          ),
           Expanded(child: pageView),
         ],
       ),
-      bottomNavigationBar: Container(
-          padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-          height: 56,
-          width: double.infinity,
-          child: MaterialButton(
-            elevation: 0.0,
-            onPressed: () {},
-            color: Colors.white,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            child: Text("Next"),
-          )),
     );
   }
+}
+
+class IndexSelectedInherited extends InheritedWidget {
+  final int data;
+
+  IndexSelectedInherited({
+    Widget child,
+    this.data,
+  }) : super(child: child);
+
+  @override
+  bool updateShouldNotify(IndexSelectedInherited oldWidget) => data != oldWidget.data;
+  static IndexSelectedInherited of(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<IndexSelectedInherited>();
 }
