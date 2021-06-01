@@ -36,7 +36,11 @@ class _MainViewState extends State<MainView> {
             goToNextPage(2, value);
           },
         ),
-        PersonalInfoView(),
+        PersonalInfoView(
+          canNext: (value) {
+            goToNextPage(3, value);
+          },
+        ),
         ScheduleVideoMeetingView(),
       ],
     );
@@ -65,22 +69,24 @@ class _MainViewState extends State<MainView> {
       appBar: AppBar(
         title: Text("Create Account"),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          IndexSelectedInherited(
-            data: pageSelected,
-            child: ProgressIndicatorWidget(
-              indexSelected: (value) {
-                setState(() {
-                  pageSelected = value;
-                });
-                pageController.animateToPage(value, duration: durationDefault, curve: curveDefaults);
-              },
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            IndexSelectedInherited(
+              data: pageSelected,
+              child: ProgressIndicatorWidget(
+                indexSelected: (value) {
+                  setState(() {
+                    pageSelected = value;
+                  });
+                  pageController.animateToPage(value, duration: durationDefault, curve: curveDefaults);
+                },
+              ),
             ),
-          ),
-          Expanded(child: pageView),
-        ],
+            Expanded(child: pageView),
+          ],
+        ),
       ),
     );
   }

@@ -44,7 +44,7 @@ class _PasswordViewState extends State<PasswordView> {
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Text(
                   "Create Password",
-                  style: TextStyle(fontSize: 32.0, color: Colors.white),
+                  style: TextStyle(fontSize: 20.0, color: Colors.white),
                 ),
               ),
               Padding(
@@ -57,9 +57,9 @@ class _PasswordViewState extends State<PasswordView> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: TextFormField(
-                  inputFormatters: [
-                    FilteringTextInputFormatter.deny(RegExp('[ ]')),
-                  ],
+                  // inputFormatters: [
+                  //   FilteringTextInputFormatter.deny(RegExp('[ ]')),
+                  // ],
                   onChanged: (value) {
                     print(value);
                     print("contain lowerCase ${value.isContainLowercase()}");
