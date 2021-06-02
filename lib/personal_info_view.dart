@@ -37,108 +37,105 @@ class _PersonalInfoViewState extends State<PersonalInfoView> {
     return Form(
       key: formKey,
       child: Scaffold(
-        backgroundColor: Color(0x7F231F20),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text(
-                    "Personal Information",
-                    style: TextStyle(fontSize: 20.0, color: Colors.white),
-                  ),
+        backgroundColor: Colors.blueAccent,
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Text(
+                  "Personal Information",
+                  style: TextStyle(fontSize: 20.0, color: Colors.white),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text(
-                    "Please fill in the information below and your goal for digital saving",
-                    style: TextStyle(fontSize: 16.0, color: Colors.white),
-                  ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Text(
+                  "Please fill in the information below and your goal for digital saving",
+                  style: TextStyle(fontSize: 16.0, color: Colors.white),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: CustomTextFormFieldDataPicker(
-                    // focusNode: subcategoryFocusNode,
-                    key: UniqueKey(),
-                    maxLines: 5,
-                    minLines: 1,
-                    titleDialogText: "Choose Option",
-                    confirmText: "Confirm",
-                    cancelText: "Cancel",
-                    defaultTextFieldData: goalActivationSelected ?? "- Choose Option -",
-                    suffixIcon: Icon(
-                      Icons.keyboard_arrow_down_rounded,
-                      color: Colors.grey,
-                    ),
-                    labelText: "Goal for Activation",
-                    dataSelector: goalActivation,
-                    onUpdateData: (selectedData) {
-                      print(selectedData);
-                      setState(() {
-                        goalActivationSelected = selectedData;
-                      });
-                    },
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: CustomTextFormFieldDataPicker(
+                  // focusNode: subcategoryFocusNode,
+                  key: UniqueKey(),
+                  maxLines: 5,
+                  minLines: 1,
+                  titleDialogText: "Choose Option",
+                  confirmText: "Confirm",
+                  cancelText: "Cancel",
+                  defaultTextFieldData: goalActivationSelected ?? "- Choose Option -",
+                  suffixIcon: Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    color: Colors.grey,
                   ),
+                  labelText: "Goal for Activation",
+                  dataSelector: goalActivation,
+                  onUpdateData: (selectedData) {
+                    print(selectedData);
+                    setState(() {
+                      goalActivationSelected = selectedData;
+                    });
+                  },
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: CustomTextFormFieldDataPicker(
-                    // focusNode: subcategoryFocusNode,
-                    key: UniqueKey(),
-                    maxLines: 5,
-                    minLines: 1,
-                    titleDialogText: "Choose Option",
-                    confirmText: "Confirm",
-                    cancelText: "Cancel",
-                    defaultTextFieldData: monthlyIncomeSelected ?? "- Choose Option -",
-                    suffixIcon: Icon(
-                      Icons.keyboard_arrow_down_rounded,
-                      color: Colors.grey,
-                    ),
-                    labelText: "Monthly Income",
-                    dataSelector: monthlyIncome,
-                    onUpdateData: (selectedData) {
-                      print(selectedData);
-                      setState(() {
-                        monthlyIncomeSelected = selectedData;
-                      });
-                    },
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: CustomTextFormFieldDataPicker(
+                  // focusNode: subcategoryFocusNode,
+                  key: UniqueKey(),
+                  maxLines: 5,
+                  minLines: 1,
+                  titleDialogText: "Choose Option",
+                  confirmText: "Confirm",
+                  cancelText: "Cancel",
+                  defaultTextFieldData: monthlyIncomeSelected ?? "- Choose Option -",
+                  suffixIcon: Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    color: Colors.grey,
                   ),
+                  labelText: "Monthly Income",
+                  dataSelector: monthlyIncome,
+                  onUpdateData: (selectedData) {
+                    print(selectedData);
+                    setState(() {
+                      monthlyIncomeSelected = selectedData;
+                    });
+                  },
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: CustomTextFormFieldDataPicker(
-                    // focusNode: subcategoryFocusNode,
-                    key: UniqueKey(),
-                    maxLines: 5,
-                    minLines: 1,
-                    titleDialogText: "Choose Option",
-                    confirmText: "Confirm",
-                    cancelText: "Cancel",
-                    defaultTextFieldData: monthlyExpenseSelected ?? "- Choose Option -",
-                    suffixIcon: Icon(
-                      Icons.keyboard_arrow_down_rounded,
-                      color: Colors.grey,
-                    ),
-                    labelText: "Monthly Expense",
-                    dataSelector: monthlyExpense,
-                    onUpdateData: (selectedData) {
-                      print(selectedData);
-                      setState(() {
-                        monthlyExpenseSelected = selectedData;
-                      });
-                    },
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: CustomTextFormFieldDataPicker(
+                  // focusNode: subcategoryFocusNode,
+                  key: UniqueKey(),
+                  maxLines: 5,
+                  minLines: 1,
+                  titleDialogText: "Choose Option",
+                  confirmText: "Confirm",
+                  cancelText: "Cancel",
+                  defaultTextFieldData: monthlyExpenseSelected ?? "- Choose Option -",
+                  suffixIcon: Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    color: Colors.grey,
                   ),
+                  labelText: "Monthly Expense",
+                  dataSelector: monthlyExpense,
+                  onUpdateData: (selectedData) {
+                    print(selectedData);
+                    setState(() {
+                      monthlyExpenseSelected = selectedData;
+                    });
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
         bottomNavigationBar: Container(
-            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            padding: EdgeInsets.symmetric(vertical: 8.0),
             height: 56,
             width: double.infinity,
             child: MaterialButton(
@@ -149,8 +146,8 @@ class _PersonalInfoViewState extends State<PersonalInfoView> {
                       widget.canNext(true);
                     }
                   : null,
-              color: Colors.blue,
-              disabledColor: Colors.white,
+              color: Colors.white,
+              disabledColor: Colors.white60,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               child: Text("Next"),
             )),

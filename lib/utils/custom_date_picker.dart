@@ -11,8 +11,8 @@ class CustomTextFormFieldDatePicker extends StatefulWidget {
   final String hintText;
   final String mode;
   final DateTime initialDate;
-  // final DateTime firstDate;
-  // final DateTime lastDate;
+  final DateTime lastDate;
+  final DateTime firstDate;
   final DateFormat dateFormat;
   final FocusNode focusNode;
   final String labelText;
@@ -25,10 +25,8 @@ class CustomTextFormFieldDatePicker extends StatefulWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.focusNode,
-
-    // this.dateFormat,
-    // @required this.lastDate,
-    // @required this.firstDate,
+    @required this.lastDate,
+    @required this.firstDate,
     @required this.initialDate,
     @required this.onUpdateData,
     this.validator,
@@ -39,8 +37,8 @@ class CustomTextFormFieldDatePicker extends StatefulWidget {
     @required this.mode,
     this.dateFormat,
   })  : assert(initialDate != null),
-        // assert(firstDate != null),
-        // assert(lastDate != null),
+        assert(lastDate != null),
+        assert(firstDate != null),
         assert(mode != null),
         super(key: key);
 
@@ -55,41 +53,34 @@ class _CustomTextFormFieldDatePicker extends State<CustomTextFormFieldDatePicker
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      validator: widget.validator,
-      focusNode: widget.focusNode,
-      controller: _controllerDate,
-      decoration: InputDecoration(
-        suffixIcon: widget.suffixIcon,
-        labelText: widget.labelText,
-        contentPadding: new EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.transparent, width: 0),
-          borderRadius: BorderRadius.all(
-            Radius.circular(8.0),
+    return Container(
+      height: 64,
+      padding: EdgeInsets.only(top: 12),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.white),
+      child: TextFormField(
+        validator: widget.validator,
+        focusNode: widget.focusNode,
+        controller: _controllerDate,
+        decoration: InputDecoration(
+          suffixIcon: widget.suffixIcon,
+          labelText: widget.labelText,
+          contentPadding: new EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+          border: const OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.all(
+              Radius.circular(8.0),
+            ),
           ),
+          fillColor: Colors.white,
+          filled: true,
+          enabled: true,
+          labelStyle: TextStyle(color: Colors.grey),
         ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.blueAccent, width: 2),
-          borderRadius: BorderRadius.all(
-            Radius.circular(8.0),
-          ),
-        ),
-        errorBorder: const OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.redAccent, width: 2),
-          borderRadius: BorderRadius.all(
-            Radius.circular(8.0),
-          ),
-        ),
-        fillColor: Colors.white,
-        filled: true,
-        enabled: true,
-        labelStyle: TextStyle(color: Colors.grey),
+        onTap: () {
+          selectDate(context);
+        },
+        readOnly: true,
       ),
-      onTap: () {
-        selectDate(context);
-      },
-      readOnly: true,
     );
   }
 
@@ -143,7 +134,7 @@ class _CustomTextFormFieldDatePicker extends State<CustomTextFormFieldDatePicker
             context: context,
             confirmText: widget.confirmText ?? "Confirm",
             cancelText: widget.cancelText ?? "Cancel",
-            initialTime: TimeOfDay.now(),
+            initialTime: TimeOfDay(hour: widget.initialDate.hour, minute: widget.initialDate.minute),
             builder: (context, child) {
               return Theme(
                 data: ThemeData.light().copyWith(
@@ -157,13 +148,13 @@ class _CustomTextFormFieldDatePicker extends State<CustomTextFormFieldDatePicker
         : await showDatePicker(
             context: context,
             initialDate: _selectedDate,
-            firstDate: DateTime(1800),
-            lastDate: DateTime.now(),
+            firstDate: widget.firstDate,
             confirmText: widget.confirmText ?? "Confirm",
             cancelText: widget.cancelText ?? "Cancel",
             fieldLabelText: "Select Date",
             errorFormatText: "Error Format",
             errorInvalidText: "Invalid Date",
+            lastDate: widget.lastDate,
             fieldHintText: 'DD/MM/YYYY',
             builder: (context, child) {
               return Theme(
@@ -179,8 +170,6 @@ class _CustomTextFormFieldDatePicker extends State<CustomTextFormFieldDatePicker
     if (picked != null && picked != _selectedDate)
       setState(() {
         _selectedDate = picked;
-        _controllerDate.text = _dateFormat.format(_selectedDate);
-        // _controllerDate.text = _selectedDate.toString();
         widget.onUpdateData(_selectedDate);
       });
   }
@@ -240,8 +229,10 @@ class _CustomTextFormFieldDatePicker extends State<CustomTextFormFieldDatePicker
                     if (picked != null && picked != _selectedDate) _selectedDate = picked;
                   },
                   initialDateTime: widget.initialDate,
+                  minimumDate: widget.firstDate,
+                  maximumDate: widget.lastDate,
                   minimumYear: 1800,
-                  maximumYear: DateTime.now().year,
+                  maximumYear: 2040,
                 ),
               ),
             ],

@@ -18,26 +18,26 @@ class _EmailViewState extends State<EmailView> {
     return Form(
       key: formKey,
       child: Scaffold(
-        backgroundColor: Color(0x7F231F20),
+        backgroundColor: Colors.blueAccent,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Text(
                 "Welcome to\nGIN Finans",
-                style: TextStyle(fontSize: 32.0),
+                style: TextStyle(fontSize: 32.0, color: Colors.white),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Text(
                 "Welcome to The Bank of The Future.\nManage and track your accounts on the go",
-                style: TextStyle(fontSize: 16.0),
+                style: TextStyle(fontSize: 16.0, color: Colors.white),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: TextFormField(
                 validator: (value) {
                   return value.isEmail().message;
@@ -72,7 +72,7 @@ class _EmailViewState extends State<EmailView> {
           ],
         ),
         bottomNavigationBar: Container(
-            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            padding: EdgeInsets.symmetric(vertical: 8.0),
             height: 56,
             width: double.infinity,
             child: MaterialButton(
@@ -87,7 +87,7 @@ class _EmailViewState extends State<EmailView> {
                 }
               },
               color: Colors.white,
-              disabledColor: Colors.blueGrey,
+              disabledColor: Colors.white60,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               child: Text("Next"),
             )),

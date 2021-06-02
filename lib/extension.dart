@@ -65,4 +65,21 @@ extension StringValidation on String {
     }
     return true;
   }
+
+  int complexity() {
+    if (this == null || this.isEmpty) {
+      return 0;
+    } else {
+      if (this.isContainUppercase() && this.isContainChar() && this.isContainUppercase() && this.isContainNumber()) {
+        return 3;
+      } else if (this.isContainChar() && this.isContainLowercase() && this.isContainUppercase()) {
+        return 2;
+      } else if ((this.isContainLowercase() || this.isContainUppercase()) &&
+          (!this.isContainNumber() || !this.isContainChar())) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }
+  }
 }

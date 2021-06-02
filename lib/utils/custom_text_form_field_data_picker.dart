@@ -65,7 +65,7 @@ class _CustomTextFormFieldDataPickerState extends State<CustomTextFormFieldDataP
   Widget build(BuildContext context) {
     return Container(
       height: 64,
-      padding: EdgeInsets.only(top: 16),
+      padding: EdgeInsets.only(top: 12),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.white),
       child: TextFormField(
         validator: widget.validator,
@@ -74,26 +74,15 @@ class _CustomTextFormFieldDataPickerState extends State<CustomTextFormFieldDataP
         minLines: widget.minLines,
         maxLines: widget.maxLines,
         decoration: InputDecoration(
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
           hintTextDirection: TextDirection.ltr,
           isCollapsed: true,
           suffixIcon: widget.suffixIcon,
           labelText: widget.labelText ?? "Select",
           isDense: true,
           contentPadding: new EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
-          enabledBorder: const OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.transparent, width: 0),
-            borderRadius: BorderRadius.all(
-              Radius.circular(8.0),
-            ),
-          ),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.blueAccent, width: 2),
-            borderRadius: BorderRadius.all(
-              Radius.circular(8.0),
-            ),
-          ),
-          errorBorder: const OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.redAccent, width: 2),
+          border: const OutlineInputBorder(
+            borderSide: BorderSide.none,
             borderRadius: BorderRadius.all(
               Radius.circular(8.0),
             ),

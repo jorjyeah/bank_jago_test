@@ -15,9 +15,9 @@ class PasswordView extends StatefulWidget {
 class _PasswordViewState extends State<PasswordView> {
   final formKey = GlobalKey<FormState>();
   bool hidePassword = true;
-  List<String> passwordComplexityMessages = ["Very Weak", "Weak", "Strong"];
+  List<String> passwordComplexityMessages = ["", "Very Weak", "Weak", "Strong"];
   int passwordComplexityValue = 0;
-  List<Color> passwordComplexityColors = [Colors.red, Colors.orangeAccent, Colors.green];
+  List<Color> passwordComplexityColors = [Colors.transparent, Colors.red, Colors.orangeAccent, Colors.green];
   bool isContainLowercase = false;
   bool isContainUppercase = false;
   bool isContainNumber = false;
@@ -34,9 +34,8 @@ class _PasswordViewState extends State<PasswordView> {
     return Form(
       key: formKey,
       child: Scaffold(
-        backgroundColor: Color(0x7F231F20),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        backgroundColor: Colors.blueAccent,
+        body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -57,26 +56,17 @@ class _PasswordViewState extends State<PasswordView> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: TextFormField(
-                  // inputFormatters: [
-                  //   FilteringTextInputFormatter.deny(RegExp('[ ]')),
-                  // ],
                   onChanged: (value) {
                     print(value);
-                    print("contain lowerCase ${value.isContainLowercase()}");
-                    print("contain upperCase ${value.isContainUppercase()}");
-                    print("contain number ${value.isContainNumber()}");
-                    print("contain char ${value.isContainChar()}");
+
                     setState(() {
+                      passwordComplexityValue = value.complexity();
                       isContainLowercase = value.isContainLowercase();
                       isContainUppercase = value.isContainUppercase();
                       isContainNumber = value.isContainNumber();
                       isContainChar = value.isContainChar();
                     });
                   },
-                  // validator: (value) {
-                  //   print(value.isContainLowercase());
-                  //   // return value.isEmail().message;
-                  // },
                   obscureText: hidePassword,
                   keyboardType: TextInputType.visiblePassword,
                   decoration: InputDecoration(
@@ -197,7 +187,7 @@ class _PasswordViewState extends State<PasswordView> {
           ),
         ),
         bottomNavigationBar: Container(
-            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            padding: EdgeInsets.symmetric(vertical: 8.0),
             height: 56,
             width: double.infinity,
             child: MaterialButton(
@@ -208,8 +198,8 @@ class _PasswordViewState extends State<PasswordView> {
                       widget.canNext(true);
                     }
                   : null,
-              color: Colors.blue,
-              disabledColor: Colors.white,
+              color: Colors.white,
+              disabledColor: Colors.white60,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               child: Text("Next"),
             )),

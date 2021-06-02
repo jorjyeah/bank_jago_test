@@ -15,7 +15,7 @@ class _ProgressIndicatorWidgetState extends State<ProgressIndicatorWidget> {
     final indexCompleted = IndexSelectedInherited.of(context).data;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Stack(
         children: [
           Positioned.fill(

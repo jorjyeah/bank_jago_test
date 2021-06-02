@@ -1,3 +1,4 @@
+import 'package:bank_jago_test/confirmation_view.dart';
 import 'package:bank_jago_test/email_view.dart';
 import 'package:bank_jago_test/helper.dart';
 import 'package:bank_jago_test/password_view.dart';
@@ -41,7 +42,12 @@ class _MainViewState extends State<MainView> {
             goToNextPage(3, value);
           },
         ),
-        ScheduleVideoMeetingView(),
+        ScheduleVideoMeetingView(
+          canNext: (value) {
+            goToNextPage(4, value);
+          },
+        ),
+        ConfirmationView(),
       ],
     );
     super.initState();
@@ -67,25 +73,32 @@ class _MainViewState extends State<MainView> {
     return Scaffold(
       backgroundColor: Colors.blueAccent,
       appBar: AppBar(
+        leading: Theme.of(context).platform == TargetPlatform.android
+            ? Icon(Icons.arrow_back_rounded)
+            : Icon(Icons.arrow_back_ios_rounded),
+        centerTitle: false,
         title: Text("Create Account"),
       ),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            IndexSelectedInherited(
-              data: pageSelected,
-              child: ProgressIndicatorWidget(
-                indexSelected: (value) {
-                  setState(() {
-                    pageSelected = value;
-                  });
-                  pageController.animateToPage(value, duration: durationDefault, curve: curveDefaults);
-                },
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              IndexSelectedInherited(
+                data: pageSelected,
+                child: ProgressIndicatorWidget(
+                  indexSelected: (value) {
+                    setState(() {
+                      pageSelected = value;
+                    });
+                    pageController.animateToPage(value, duration: durationDefault, curve: curveDefaults);
+                  },
+                ),
               ),
-            ),
-            Expanded(child: pageView),
-          ],
+              Expanded(child: pageView),
+            ],
+          ),
         ),
       ),
     );
